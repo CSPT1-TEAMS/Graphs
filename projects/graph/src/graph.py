@@ -1,6 +1,8 @@
 """
 Simple graph implementation compatible with BokehGraph class.
 """
+import queue
+
 class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
@@ -10,12 +12,20 @@ class Graph:
         self.vertices[vertex] = set()
 
     def add_edge(self, start, end, bidirectional=True):
-        if start in self.vertices and end in self.vertices:
+        if start not in self.vertices and end not in self.vertices:
             raise ValueError("One or more vertices do not exist")
         else:
             self.vertices[start].add(end)
             if bidirectional:
                 self.vertices[end].add(start)
+
+    def breadth_first_search(self, vertex):
+        # queue = queue.Queue()
+        # queue.put(vertex)
+
+        # while not queue.empty():
+        #     vertex = queue.get()
+        pass
 
 
 if __name__ == "__main__":
