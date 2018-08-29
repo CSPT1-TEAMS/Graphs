@@ -19,7 +19,6 @@ class Graph:
         # Will this check work given that self.vertices is a dict & not a set?
         #if not set(edges).issubset(self.vertices)
         self.vertices[vertex] = set(edges)
-        self.vertices.add(item)
 
     def add_edge(self, start, end, is_directed = True):
 
