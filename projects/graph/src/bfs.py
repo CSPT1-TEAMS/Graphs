@@ -3,7 +3,6 @@
 from queue import *
 from graph import Graph
 
-
 class CheckableQueue(Queue):
     def contains(self, item):
         with self.mutex:
@@ -15,19 +14,14 @@ def bfs(graph, start):
     queue.put(start)
 
     while not queue.empty():
-        # print(queue.qsize())
         curr = queue.get()
         neighbors = graph.vertices[curr]
-
-        for neighbor in neighbors:
-            if not neighbor in nodes and not queue.contains(neighbor):
-                queue.put(neighbor)
-
+        for n in neighbors:
+            if not n in nodes and not queue.contains(n):
+                queue.put(n)
         nodes.append(curr)
 
     return nodes
-
-
 
 def main():
     graph = Graph()
