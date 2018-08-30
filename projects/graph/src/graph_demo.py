@@ -27,8 +27,8 @@ def main():
     graph.add_edge('4', '0')
 
     bg = BokehGraph(graph)
-    print( b_f_s( graph, 0 ) )
-    bg.show()
+    print( b_f_s( graph, '0' ) )
+    # bg.show()
 
 
 def b_f_s(graph, startVert):
@@ -42,49 +42,29 @@ def b_f_s(graph, startVert):
     #     colors[v] = 'FFFFFF'
     print(graph.vertices)
     # startVert.colors = '666666'
-    q.put(graph.vertices[f'{startVert}']) # The same as q = [start]
+    q.put(startVert) # The same as q = [start]
+
 
     while not q.empty():
 
         curr_node = q.get() # The same as q.pop(0)
+        neighbors = graph.vertices[f'{curr_node}']
 
         if curr_node not in visited:
-            a = list(curr_node)
 
-            visited.append(a[0])
+            visited.append(curr_node)
 
             print("current", curr_node)
             print("visit", visited)
-            # neighbors = graph[curr_node]
 
-            for n in curr_node:
-                q.put(n)
-                
-                print("Q", q)
+            for n in neighbors:
+                if n not in visited:
+                    q.put(n)
+        
+                    print("Q", q.queue)
+        
 
     return print("When it ends", visited)
-
-
-#     visited = []
-
-#     colors = {}
-
-#   for v of graph.vertexes:
-#     color[v] = white
-
-#   startVert.color = gray
-#   queue.enqueue(startVert) # queue = [startVert]
-
-#   while !queue.isEmpty():
-#     u = queue[0]  // Peek at head of queue, but do not dequeue!
-
-#     for v of u.neighbors:
-#       if v.color == white:
-#         v.color = gray
-#         queue.enqueue(v)
-    
-#     nodes.append(queue.dequeue())
-#     u.color = black
 
 
 if __name__ == '__main__':
