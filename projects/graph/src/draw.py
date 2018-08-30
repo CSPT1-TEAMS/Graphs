@@ -6,7 +6,6 @@ from bokeh.io import show, output_file
 from bokeh.plotting import figure
 from bokeh.models import (GraphRenderer, StaticLayoutProvider, Circle, LabelSet, ColumnDataSource)
 
-
 # TBC 1 make your graph visualization cooler
 class BokehGraph:
     """Class that takes a graph and exposes drawing methods."""
