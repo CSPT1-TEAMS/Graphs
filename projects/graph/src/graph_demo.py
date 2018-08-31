@@ -38,8 +38,10 @@ def b_f_s(graph, startVert):
 
     q = queue.Queue()
 
-    # for v in graph.vertices:
-    #     colors[v] = 'FFFFFF'
+    for v in graph.vertices:
+        colors[v] = 'White'
+        print("colors", colors)
+
     print(graph.vertices)
     # startVert.colors = '666666'
     q.put(startVert) # The same as q = [start]
@@ -51,18 +53,22 @@ def b_f_s(graph, startVert):
         neighbors = graph.vertices[f'{curr_node}']
 
         if curr_node not in visited:
-
+            colors[curr_node] = 'Black'
             visited.append(curr_node)
 
+            print("colors2", colors)
             print("current", curr_node)
             print("visit", visited)
 
             for n in neighbors:
                 if n not in visited:
+                    if colors[n] == 'White':
+                        colors[n] = 'Grey'
                     q.put(n)
-        
+
+                    print("colors3", colors)
                     print("Q", q.queue)
-        
+            print("colors4", colors)
 
     return print("When it ends", visited)
 
