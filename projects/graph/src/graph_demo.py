@@ -45,12 +45,32 @@ def breadth_first_search(graph, start_vertex):
         visted.append(vertex)
     return visted
 
+
+# def depth_first_search(graph, start):
+#     visited = []
+#     colors = {vertex: "white" for vertex in graph.vertices.keys()}
+
+#     q = queue.LifoQueue()
+#     q.put(start)
+
+#     while not q.empty():
+#         vertex = q.get()
+#         colors[vertex] = "black"
+#         for edge in graph.vertices[vertex]:
+#             if colors[edge] == "white":
+#                 colors[edge] = "gray"
+#                 q.put(edge)
+#         visited.append(vertex)
+#     return visited
+
 def main():
     graph = Graph()
     graph = draw_random_graph(graph, 5, 10)
     vertices = list(graph.vertices.keys())
     print_graph(graph)
-    print(breadth_first_search(graph, vertices[0]))
+    print("bfs: ",breadth_first_search(graph, vertices[0]))
+    print("dfs: ",depth_first_search(graph, vertices[0]))
+
     # bg = BokehGraph(graph)
     # bg.show()
 
