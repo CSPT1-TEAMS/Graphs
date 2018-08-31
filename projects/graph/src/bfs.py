@@ -3,25 +3,36 @@
 from queue import *
 from graph import Graph
 
-class CheckableQueue(Queue):
-    def contains(self, item):
-        with self.mutex:
-            return item in self.queue
-
 def bfs(graph, start):
     nodes = []
-    queue = CheckableQueue()
+    queue = Queue()
     queue.put(start)
+    nodes.append(start)
 
     while not queue.empty():
         curr = queue.get()
         neighbors = graph.vertices[curr]
         for n in neighbors:
-            if not n in nodes and not queue.contains(n):
+            if not n in nodes:
+                nodes.append(n)
                 queue.put(n)
-        nodes.append(curr)
 
     return nodes
+
+def dfs(graph, start):
+    nodes = []
+    nodes.append(start)
+
+    def recur(start):
+        neighbors = graph.vertices[start]
+        for n in neighbors:
+            if n not in nodes:
+                nodes.append(n)
+                recur(n)
+    
+    recur(start)
+    return nodes
+    
 
 def main():
     graph = Graph()
@@ -38,7 +49,11 @@ def main():
     graph.add_edge(2,3)
     graph.add_edge(3,5)
     graph.add_edge(1,4)
-    print(bfs(graph, 1))
+
+    print('breadth first order: ', bfs(graph, 1))
+    # [1, 2, 4, 6, 3, 5]
+    print('depth first order:   ', dfs(graph, 1))
+    # [1, 2, 3, 5, 6, 4]
 
 if __name__ == '__main__':
     # TODO - parse argv
