@@ -11,7 +11,7 @@ class Graph:
     def add_vertex(self, vertex):
         self.vertices[vertex] = set()
 
-    def add_edge(self, start, end, bidirectional=True):
+    def add_edge(self, start, end, bidirectional=False):
         if start not in self.vertices and end not in self.vertices:
             raise ValueError("One or more vertices do not exist")
         else:

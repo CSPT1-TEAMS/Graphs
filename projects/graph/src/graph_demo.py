@@ -14,11 +14,10 @@ def draw_random_graph(graph, vertices, edges):
     for vertex in vertices:
         graph.add_vertex(vertex)
 
-    bidirec = [False, True]
+    bidirectional = bool(random.randint(0,1))
     for _ in range(edges):
-        i = random.randint(0,1)
         pair = random.choices(vertices, k=2)
-        graph.add_edge(pair[0], pair[1], bidirectional=bidirec[i])
+        graph.add_edge(pair[0], pair[1], bidirectional=bidirectional)
     return graph
 
 def print_graph( graph ):
