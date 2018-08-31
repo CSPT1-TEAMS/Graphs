@@ -19,14 +19,6 @@ class Graph:
             if bidirectional:
                 self.vertices[end].add(start)
 
-    def breadth_first_search(self, vertex):
-        # queue = queue.Queue()
-        # queue.put(vertex)
-
-        # while not queue.empty():
-        #     vertex = queue.get()
-        pass
-
 
 if __name__ == "__main__":
     graph = Graph()  # Instantiate your graph
