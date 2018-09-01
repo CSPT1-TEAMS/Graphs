@@ -6,6 +6,7 @@ Demonstration of Graph and BokehGraph functionality.
 import queue
 import random
 from sys import argv
+from collections import deque
 from graph import Graph
 from draw import BokehGraph
 
@@ -16,8 +17,13 @@ def draw_random_graph(graph, vertices, edges):
 
     bidirectional = bool(random.randint(0,1))
     for _ in range(edges):
-        pair = random.choices(vertices, k=2)
-        graph.add_edge(pair[0], pair[1], bidirectional=bidirectional)
+        success = False
+        while not success:
+            pair = random.choices(vertices, k=2)
+            success = graph.add_edge(
+                pair[0], pair[1], bidirectional=bidirectional
+            )
+
     return graph
 
 def print_graph(graph):
@@ -105,14 +111,14 @@ def dfs(graph, start):
 
 def main():
     graph = Graph()
-    graph = draw_random_graph(graph, 5, 10)
+    graph = draw_random_graph(graph, 10, 20)
     vertices = list(graph.vertices.keys())
     print_graph(graph)
     print('BFS:', breadth_first_search(graph, vertices[0]))
     print('Elissa DFS: ', depth_first_search(graph, vertices[0]))
     print("DFS: ", dfs(graph, vertices[0]))
-    bg = BokehGraph(graph)
-    bg.show()
+    # bg = BokehGraph(graph)
+    # bg.show()
 
 
 if __name__ == "__main__":
