@@ -27,7 +27,7 @@ def main():
     graph.add_edge('4', '0')
 
     bg = BokehGraph(graph)
-    print( d_f_s( graph, '0' ) )
+    print( b_f_s( graph, '0' ) )
     # bg.show()
 
 
@@ -61,6 +61,7 @@ def b_f_s(graph, startVert):
                     if colors[n] == 'White':
                         colors[n] = 'Grey'
                     q.put(n)
+                    print('colors', colors)
 
 
     return print("When it ends", visited, colors)
