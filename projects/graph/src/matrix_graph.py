@@ -12,30 +12,44 @@ class Vertex:
 class Graph:
     """The graph is a matrix of 0s/1s indicating existence of edges."""
     # pylint: disable=too-few-public-methods
-    def __init__(self, num_vertices):
-        # * copying is shallow, so need explicit iteration for unique rows
-        self.matrix = [[0] * num_vertices for _ in range(num_vertices)]
+    def __init__(self):
+        self.matrix = [[0]]
 
     def connect_vertex(self, row, col):
         """Add an edge between vertices indicated by row/col of matrix."""
         self.matrix[row][col] = 1
+        self.matrix[col][row] = 1
     
     def add_vertex(self, vertex):
-        vertices_to_add = len(self.matrix) - (len(self.matrix) + 1)
-        # new_row_integer = len(self.matrix)+1
-        for i in new_row:
-            i.append(0 * len(self.matrix)+1 )
-        print(new_row)
-    
+        new_row = [0] * (len(self.matrix)+1)
 
         matrix_clone = self.matrix[:]
         for i in matrix_clone:
             i.append(0)
-            # matrix_clone[.append([0])
-            # matrix_clone.append(row_to_add)
+
+        matrix_clone.append(new_row)
+        self.matrix = matrix_clone
 
 
-graph = Graph(5)
-print(graph.matrix)
+    def print_matrix(self):
+        for row in self.matrix:
+            print(row)
+
+
+graph = Graph()
 graph.add_vertex(6)
-print(graph.matrix)
+graph.add_vertex(2)
+graph.add_vertex(5)
+graph.add_vertex(7)
+graph.add_vertex(8)
+graph.add_vertex(1)
+# graph.connect_vertex(0,1)
+# graph.connect_vertex(1,2)
+# graph.connect_vertex(2,3)
+# graph.connect_vertex(3,4)
+# graph.connect_vertex(4,5)
+# graph.connect_vertex(0,4)
+# graph.connect_vertex(1,3)
+# graph.connect_vertex(2,2)
+# graph.connect_vertex(5,1)
+# graph.connect_vertex(4,2)
