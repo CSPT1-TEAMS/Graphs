@@ -13,11 +13,14 @@ class Graph:
 
     def add_edge(self, start, end, bidirectional=False):
         if start not in self.vertices and end not in self.vertices:
-            raise ValueError("One or more vertices do not exist")
+            return False
+        elif end in self.vertices[start] or start in self.vertices[end]:
+            return False
         else:
             self.vertices[start].add(end)
             if bidirectional:
                 self.vertices[end].add(start)
+            return True
 
 
 if __name__ == "__main__":
