@@ -1,6 +1,11 @@
-"""
-General drawing methods for graphs using Bokeh.
-"""
+from bokeh.plotting import figure, output_file, show
+from bokeh.models import Label, LabelSet, ColumnDataSource
+import random
+import itertools
+
+# """
+# General drawing methods for graphs using Bokeh.
+# """
 from random import choice, random
 from bokeh.io import show, output_file
 from bokeh.plotting import figure
@@ -34,8 +39,10 @@ class BokehGraph:
         )
         graph_renderer.node_renderer.data_source.add(
             list(self.graph.vertices.keys()), 'text')
+
         graph_renderer.node_renderer.glyph = Circle(
             size=circle_size, fill_color='color')
+
         graph_renderer.edge_renderer.data_source.data = self._get_edge_indexes()
         self.randomize()
         graph_renderer.layout_provider = StaticLayoutProvider(
@@ -49,6 +56,20 @@ class BokehGraph:
                                    for j in range(6)])
             colors.append(color)
         return colors
+
+    def _get_connected_colors(self):
+        colors = []
+        for _ in range(len(self.graph.vertices)):
+            color = "#" + ''.join([choice('0123456789ABCDEF')
+                                   for j in range(6)])
+            colors.append(color)
+        return colors
+
+    # def connected_component_colors():
+    # for connected_component, i in enumerate(cc_list):
+    #     for v in connected_component:
+    #         graph_renderer.node_renderer.glyph = Circle(size=circle_size, fill_color=colors[i])
+    #         #wip 
 
     def _get_edge_indexes(self):
         start_indices = []
