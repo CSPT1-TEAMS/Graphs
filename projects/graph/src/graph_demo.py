@@ -14,6 +14,8 @@ from sys import argv
 def main():
     graph = Graph()
     graph.add_vertex('0')
+    graph.add_vertex('7')
+    graph.add_vertex('10')
     graph.add_vertex('2')
     graph.add_vertex('5')
     graph.add_vertex('6')
@@ -25,10 +27,12 @@ def main():
     graph.add_edge('5', '0')
     graph.add_edge('5', '9')
     graph.add_edge('4', '0')
+    graph.add_edge('6', '7')
+    graph.add_edge('1', '10')
 
     bg = BokehGraph(graph)
     print( b_f_s( graph, '0' ) )
-    # bg.show()
+    bg.show()
 
 
 def b_f_s(graph, startVert):
@@ -65,6 +69,21 @@ def b_f_s(graph, startVert):
 
     return print("When it ends", visited, colors)
 
+def c_components(graph):
+    graph_comps = []
+    visited_comps = set()
+
+    for v in graph.vertices.keys():
+        if v not in visited_comps:
+
+            component = b_f_s(graph, v)
+
+            graph_comps.append(component)
+
+            for comps in component:
+                visited_comps.update(component)
+
+    return graph_comps
 
 if __name__ == '__main__':
     # TODO - parse argv
