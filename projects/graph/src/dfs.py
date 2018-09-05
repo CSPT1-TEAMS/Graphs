@@ -1,24 +1,21 @@
 #!/usr/bin/python
 
-from queue import *
 from graph import Graph
 
-def bfs(graph, start):
+def dfs(graph, start):
     nodes = []
-    queue = Queue()
-    queue.put(start)
     nodes.append(start)
 
-    while not queue.empty():
-        curr = queue.get()
-        neighbors = graph.vertices[curr]
+    def recur(start):
+        neighbors = graph.vertices[start]
         for n in neighbors:
-            if not n in nodes:
+            if n not in nodes:
                 nodes.append(n)
-                queue.put(n)
-
+                recur(n)
+    
+    recur(start)
     return nodes
-
+    
 
 def main():
     graph = Graph()
@@ -36,8 +33,8 @@ def main():
     graph.add_edge(3,5)
     graph.add_edge(1,4)
 
-    print('breadth first order: ', bfs(graph, 1))
-    # [1, 2, 4, 6, 3, 5]
+    print('depth first order:   ', dfs(graph, 1))
+    # [1, 2, 3, 5, 6, 4]
 
 if __name__ == '__main__':
     # TODO - parse argv
