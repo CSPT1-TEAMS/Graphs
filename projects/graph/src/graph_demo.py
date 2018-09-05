@@ -26,10 +26,23 @@ def main():
     graph.add_edge('5', '9')
     graph.add_edge('4', '0')
 
-    bg = BokehGraph(graph)
-    print( b_f_s( graph, '0' ) )
+    # bg = BokehGraph(graph)
+    # print( b_f_s( graph, '0' ) )
+    print(connected_components(graph))
     # bg.show()
 
+def connected_components(graph):
+    components = []
+    visited = set()
+
+    for vertex in graph.vertices.keys():
+        if vertex not in visited:
+            component = b_f_s( graph, vertex )
+            components.append(component)
+            for c in component:
+                visited.update(component)
+
+    return components
 
 def b_f_s(graph, startVert):
 
@@ -64,7 +77,7 @@ def b_f_s(graph, startVert):
                     print('colors', colors)
 
 
-    return print("When it ends", visited, colors)
+    return visited
 
 def d_f_s(graph, startVert):
 
