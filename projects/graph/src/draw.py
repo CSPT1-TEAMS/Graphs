@@ -25,15 +25,23 @@ class BokehGraph:
         self._setup_graph_renderer(circle_size)
     
     def _setup_graph_renderer(self, circle_size):
+        # comps = self.graph.connected_components()
         graph_renderer = GraphRenderer()
-
+        # for c in comps:
+        #     print('c', c)
         graph_renderer.node_renderer.data_source.add( 
-            list(self.graph.vertices.keys() ), 'index'
+           list(self.graph.vertices.keys()), 'index'
         )
+        # graph_renderer.node_renderer.data_source.add( 
+        #    c, 'index'
+        # )
+        # list(self.graph.vertices.keys()
         graph_renderer.node_renderer.data_source.add( 
             self._get_random_colors(), 'color'
         )
-        graph_renderer.node_renderer.data_source.add( list(self.graph.vertices.keys() ), 'text' )
+        # print(graph_renderer.node_renderer.data_source('color'))
+        graph_renderer.node_renderer.data_source.add( list(self.graph.vertices.keys()), 'text' )
+        # graph_renderer.node_renderer.data_source.add( c, 'text' )
         graph_renderer.node_renderer.glyph = Circle( size=circle_size, fill_color='color' )
         graph_renderer.edge_renderer.data_source.data = self._get_edge_indexes()
         self.randomize()
@@ -42,7 +50,8 @@ class BokehGraph:
 
     def _get_random_colors(self):
         colors = []
-        for _ in range(  len( self.graph.vertices) ):
+
+        for _ in range( len( self.graph.vertices)):
             color = "#" + ''.join([choice( '0123456789ABCDEF') for j in range(6)])
             colors.append( color )
         return colors

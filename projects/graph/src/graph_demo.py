@@ -26,86 +26,86 @@ def main():
     graph.add_edge('5', '9')
     graph.add_edge('4', '0')
 
-    # bg = BokehGraph(graph)
+    bg = BokehGraph(graph)
     # print( b_f_s( graph, '0' ) )
-    print(connected_components(graph))
-    # bg.show()
+    # print(connected_components(graph))
+    bg.show()
 
-def connected_components(graph):
-    components = []
-    visited = set()
+# def connected_components(graph):
+#     components = []
+#     visited = set()
 
-    for vertex in graph.vertices.keys():
-        if vertex not in visited:
-            component = b_f_s( graph, vertex )
-            components.append(component)
-            for c in component:
-                visited.update(component)
+#     for vertex in graph.vertices.keys():
+#         if vertex not in visited:
+#             component = b_f_s( graph, vertex )
+#             components.append(component)
+#             for c in component:
+#                 visited.update(component)
 
-    return components
+#     return components
 
-def b_f_s(graph, startVert):
+# def b_f_s(graph, startVert):
 
-    visited = []
-    colors = {}
+#     visited = []
+#     colors = {}
 
-    q = queue.Queue()
+#     q = queue.Queue()
 
-    for v in graph.vertices:
-        colors[v] = 'White'
+#     for v in graph.vertices:
+#         colors[v] = 'White'
 
-    print(graph.vertices)
-    # startVert.colors = '666666'
-    q.put(startVert) # The same as q = [start]
-
-
-    while not q.empty():
-
-        curr_node = q.get() # The same as q.pop(0)
-        neighbors = graph.vertices[f'{curr_node}']
-
-        if curr_node not in visited:
-            colors[curr_node] = 'Black'
-            visited.append(curr_node)
+#     print(graph.vertices)
+#     # startVert.colors = '666666'
+#     q.put(startVert) # The same as q = [start]
 
 
-            for n in neighbors:
-                if n not in visited:
-                    if colors[n] == 'White':
-                        colors[n] = 'Grey'
-                    q.put(n)
-                    print('colors', colors)
+#     while not q.empty():
+
+#         curr_node = q.get() # The same as q.pop(0)
+#         neighbors = graph.vertices[f'{curr_node}']
+
+#         if curr_node not in visited:
+#             colors[curr_node] = 'Black'
+#             visited.append(curr_node)
 
 
-    return visited
-
-def d_f_s(graph, startVert):
-
-    visited = []
-    colors = {}
-
-    s = [startVert]
-
-    for v in graph.vertices:
-        colors[v] = 'White'
-
-    print(graph.vertices)
+#             for n in neighbors:
+#                 if n not in visited:
+#                     if colors[n] == 'White':
+#                         colors[n] = 'Grey'
+#                     q.put(n)
+#                     print('colors', colors)
 
 
-    while len(s) is not 0:
+#     return visited
 
-        curr_node = s.pop()
-        neighbors = graph.vertices[f'{curr_node}']
-        for n in neighbors:
-            if n not in visited:
-                visited.append(n)
-                colors[curr_node] = 'Black'
-                s.append(n)
-            if colors[n] == 'White':
-                colors[n] = 'Grey'
+# def d_f_s(graph, startVert):
+
+#     visited = []
+#     colors = {}
+
+#     s = [startVert]
+
+#     for v in graph.vertices:
+#         colors[v] = 'White'
+
+#     print(graph.vertices)
+
+
+#     while len(s) is not 0:
+
+#         curr_node = s.pop()
+#         neighbors = graph.vertices[f'{curr_node}']
+#         for n in neighbors:
+#             if n not in visited:
+#                 visited.append(n)
+#                 colors[curr_node] = 'Black'
+#                 s.append(n)
+#             if colors[n] == 'White':
+#                 colors[n] = 'Grey'
     
 
-    return print("When it ends", visited, colors)
+#     return print("When it ends", visited, colors)
 
 
 if __name__ == '__main__':
