@@ -29,7 +29,8 @@ class BokehGraph:
         graph_renderer = GraphRenderer()
 
         graph_renderer.node_renderer.data_source.add( 
-            list(self.graph.vertices.keys() ), 'index'
+            
+            self.comp_order(), 'index'
         )
         graph_renderer.node_renderer.data_source.add( 
             self._get_random_colors(), 'color'
@@ -50,6 +51,12 @@ class BokehGraph:
                 colors.append( color )
                 print(color)
         return colors
+
+    def comp_order(self):
+        flat_list = [ node for i in self.graph_comps for node in i  ]
+
+        print("FL", flat_list)
+        return flat_list
 
     def _get_edge_indexes(self):
         start_indices = []
