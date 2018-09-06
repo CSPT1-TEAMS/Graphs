@@ -60,7 +60,7 @@ class Graph:
         while not q.empty():
 
             curr_node = q.get() # The same as q.pop(0)
-            neighbors = self.vertices[f'{curr_node}']
+            neighbors = self.vertices[curr_node]
 
             if curr_node not in visited:
                 colors[curr_node] = 'Black'

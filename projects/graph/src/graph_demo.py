@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import random
 import queue
 from draw import BokehGraph
 from graph import Graph, Vertex
@@ -10,22 +11,34 @@ Demonstration of Graph and BokehGraph functionality.
 
 from sys import argv
 
+def draw_random_graph(graph, vertices, edges):
+    vertices = random.sample(range(1, 100), vertices)
+    for vertex in vertices:
+        graph.add_vertex(vertex)
+    
+    for _ in range(edges):
+        pair = random.choices(vertices, k = 2)
+        graph.add_edge(pair[0], pair[1])
+
+    return graph
+
 
 def main():
     graph = Graph()
-    graph.add_vertex('0')
-    graph.add_vertex('2')
-    graph.add_vertex('5')
-    graph.add_vertex('6')
-    graph.add_vertex('9')
-    graph.add_vertex('4')
-    graph.add_vertex('1')
-    graph.add_edge('6', '4')
-    graph.add_edge('5', '0')
-    graph.add_edge('5', '9')
-    graph.add_edge('4', '0')
-    graph.add_edge('4', '1')
-    graph.add_edge('2', '1')
+    graph = draw_random_graph(graph, 60, 120)
+    # graph.add_vertex('0')
+    # graph.add_vertex('2')
+    # graph.add_vertex('5')
+    # graph.add_vertex('6')
+    # graph.add_vertex('9')
+    # graph.add_vertex('4')
+    # graph.add_vertex('1')
+    # graph.add_edge('6', '4')
+    # graph.add_edge('5', '0')
+    # graph.add_edge('5', '9')
+    # graph.add_edge('4', '0')
+    # graph.add_edge('4', '1')
+    # graph.add_edge('2', '1')
 
 
 
