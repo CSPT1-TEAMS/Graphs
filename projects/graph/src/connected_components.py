@@ -11,12 +11,8 @@ def connected_components(graph):
     for vertex in graph.vertices.keys():
         if vertex not in visited:
             component = bfs(graph, vertex)
-            print('component:', component)
+            visited.update(component)
             components.append(component)
-            # TODO: find a way to 'spread'
-            # this into visited to decrease time complexity?
-            for c in component:
-                visited.add(c)
 
     return components
 
