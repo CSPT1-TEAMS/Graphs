@@ -48,40 +48,69 @@ def DFS_visit(vertex, graph):
     vertex_data[vertex][0] = 'black'
 
 import queue
+import collections
 
 vertex_data_b = {}
 
-def breadth_first_search(graph, start):
-    for v in graph.vertices:
-        vertex_data_b[v] = 'white'
-    vertex_data_b[start] = 'gray'
-    q = []
-    q.append(start)
-    while q:
-        first = q[0]
-        for v in graph.vertices[first]:
-            if vertex_data_b[v] == 'white':
-                vertex_data_b[v] = 'grey'
-                # print('VDB', vertex_data_b)
-                q.append(v)
-        q = q[1:]
-        # print('Q:::', q)
-        vertex_data_b[first] = 'black'
-        # print('VDB', vertex_data_b)
-    return vertex_data_b.keys()
+# def breadth_first_search(graph, start): # CC LISA SLN V1
+#     # for v in graph.vertices:
+#     #     vertex_data_b[v] = 'white'
+#     vertex_data_b[start] = 'gray'
+#     q = []
+#     q.append(start)
+#     while q:
+#         first = q[0]
+#         # print('Graph.vertices::', graph.vertices)
+#         # print('first', first)
+#         for v in graph.vertices[first]:
+#             if vertex_data_b[v] == 'white':
+#                 vertex_data_b[v] = 'gray'
+#                 # print('VDB', vertex_data_b)
+#                 q.append(v)
+#         q = q[1:]
+#         # print('Q:::', q)
+#         vertex_data_b[first] = 'black'
+#         # print('VDB', vertex_data_b)
+#     return vertex_data_b.keys()
+
+def bfs( graph, start_vert ): # elissa sln
+    nodes = []
+    colors = {} # dictionary of node colors that corresponds to vertices
+    my_queue = collections.deque()
+
+    # initially color nodes white (unexplored)
+    for key in graph.vertices.keys():
+        colors[key] = "white"
+
+    my_queue.append( str( start_vert ) )
+    colors[start_vert] = "gray"
+
+    while len(my_queue) != 0:
+        node = my_queue[0]
+        neighbors = graph.vertices[ node ]
+        # for all of node's neighbors
+        for n in neighbors:
+            if colors[n] == "white":
+                # schedule to be explored, color gray 
+                my_queue.append( str( n ) )
+                colors[n] = "gray"
+        # at this point, all neighbors scheduled to be explored,
+        # change color to black to indicate exploration complete
+        colors[node] = "black"
+        nodes.append( my_queue.popleft() )
+    
+    return nodes
 
 vertex_data_c = {}
 def connected_components(graph):
     cc_list = []
     visited = set()
-    for v in graph.vertices:
-        vertex_data_c[v] = 'white'
-    for v in vertex_data_c:
-        # print(vertex_data_c[v])
-        if vertex_data_c[v] == 'white':
-            # print('VERTEX', v)
-            component = breadth_first_search(graph, v)
+    for v in graph.vertices.keys():
+        if v not in visited:
+            component = bfs(graph, v)
             cc_list.append(component)
+            for c in component:
+                visited.update(c)
     return cc_list    
 
 
@@ -110,7 +139,7 @@ def main():
     # bg.show()
 
     ## added print statements
-    print('BFS: ' + str(breadth_first_search(graph, 0)))
+    print('BFS: ' + str(bfs(graph, '7')))
     print('DFS: ' + str(depth_first(graph)))
     cclist = connected_components(graph)
     ccstr = ''
