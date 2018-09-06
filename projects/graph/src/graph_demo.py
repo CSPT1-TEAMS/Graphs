@@ -30,8 +30,11 @@ def main():
     graph.add_edge('6', '7')
     graph.add_edge('1', '10')
 
-    bg = BokehGraph(graph)
-    print( b_f_s( graph, '0' ) )
+
+    # b_f_s( graph, '0' )
+    graph_comps = c_components(graph)
+    print(graph_comps)
+    bg = BokehGraph(graph, graph_comps)
     bg.show()
 
 
@@ -67,7 +70,7 @@ def b_f_s(graph, startVert):
                     q.put(n)
 
 
-    return print("When it ends", visited, colors)
+    return visited
 
 def c_components(graph):
     graph_comps = []
@@ -80,8 +83,9 @@ def c_components(graph):
 
             graph_comps.append(component)
 
-            for comps in component:
+            for c in component:
                 visited_comps.update(component)
+
 
     return graph_comps
 

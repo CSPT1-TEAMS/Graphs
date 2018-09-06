@@ -8,14 +8,15 @@ from bokeh.models import (GraphRenderer, StaticLayoutProvider, Circle, LabelSet,
                           ColumnDataSource)
 
 
+
 # TBC 1 make your graph visualization cooler
 class BokehGraph:
     """Class that takes a graph and exposes drawing methods."""
-    def __init__(self, graph, title='Graph', width=10, height=10, show_axis=False, show_grid=False, circle_size=25):
+    def __init__(self, graph, graph_comps, title='Graph', width=10, height=10, show_axis=False, show_grid=False, circle_size=25):
         if not graph.vertices:
             print("empty")
         self.graph = graph
-
+        self.graph_comps = graph_comps
         self.width = width
         self.height = height
         self.pos = {}
@@ -42,9 +43,12 @@ class BokehGraph:
 
     def _get_random_colors(self):
         colors = []
-        for _ in range(  len( self.graph.vertices) ):
-            # color = "#" + ''.join([choice( '0123456789ABCDEF') for j in range(6)])
-            colors.append( '#FFFFF' )
+        for comps in self.graph_comps:
+            color = "#" + ''.join([choice( '0123456789ABCDEF') for j in range(6)])
+            print(comps)
+            for c in comps:
+                colors.append( color )
+                print(color)
         return colors
 
     def _get_edge_indexes(self):
