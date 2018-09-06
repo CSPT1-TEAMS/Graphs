@@ -20,11 +20,14 @@ def main():
     graph.add_vertex('9')
     graph.add_vertex('4')
     graph.add_vertex('1')
-    # graph.add_edge('3', '4')
-    graph.add_edge('0', '2')
+    graph.add_edge('6', '4')
     graph.add_edge('5', '0')
     graph.add_edge('5', '9')
     graph.add_edge('4', '0')
+    graph.add_edge('4', '1')
+    graph.add_edge('2', '1')
+
+
 
     bg = BokehGraph(graph)
     # print( b_f_s( graph, '0' ) )
