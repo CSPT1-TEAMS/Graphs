@@ -11,11 +11,13 @@ from bokeh.io import show, output_file
 from bokeh.plotting import figure
 from bokeh.models import (GraphRenderer, StaticLayoutProvider, Circle, LabelSet, ColumnDataSource)
 
+
+
 # TBC 1 make your graph visualization cooler
 class BokehGraph:
     """Class that takes a graph and exposes drawing methods."""
 
-    def __init__(self, graph, title='Graph', width=10, height=10, show_axis=False, show_grid=False, circle_size=25):
+    def __init__(self, graph, title='Graph', width=10, height=10, show_axis=False, show_grid=False, circle_size=25, cc_list=None):
         if not graph.vertices:
             print("empty")
         self.graph = graph
@@ -26,16 +28,17 @@ class BokehGraph:
             0, width), y_range=(0, height))
         self.plot.axis.visible = show_axis
         self.plot.grid.visible = show_grid
-        self._setup_graph_renderer(circle_size)
+        self.cc_list = cc_list
+        self._setup_graph_renderer(circle_size, cc_list)
 
-    def _setup_graph_renderer(self, circle_size):
+    def _setup_graph_renderer(self, circle_size, cc_list):
         graph_renderer = GraphRenderer()
 
         graph_renderer.node_renderer.data_source.add(
             list(self.graph.vertices.keys()), 'index'
         )
         graph_renderer.node_renderer.data_source.add(
-            self._get_random_colors(), 'color'
+            self._get_connected_colors(cc_list), 'color'
         )
         graph_renderer.node_renderer.data_source.add(
             list(self.graph.vertices.keys()), 'text')
@@ -49,20 +52,22 @@ class BokehGraph:
             graph_layout=self.pos)
         self.plot.renderers.append(graph_renderer)
 
-    def _get_random_colors(self):
-        colors = []
-        for _ in range(len(self.graph.vertices)):
-            color = "#" + ''.join([choice('0123456789ABCDEF')
-                                   for j in range(6)])
-            colors.append(color)
-        return colors
+    # def _get_random_colors(self):
+    #     colors = []
+    #     for _ in range(len(self.graph.vertices)):
+    #         color = "#" + ''.join([choice('0123456789ABCDEF')
+    #                                for j in range(6)])
+    #         colors.append(color)
+    #     return colors
 
-    def _get_connected_colors(self):
+    def _get_connected_colors(self, cc_list):
         colors = []
-        for _ in range(len(self.graph.vertices)):
+        for cc in cc_list:
             color = "#" + ''.join([choice('0123456789ABCDEF')
                                    for j in range(6)])
-            colors.append(color)
+            for c in cc:
+                colors.append(color)
+        print('colors', colors)
         return colors
 
     # def connected_component_colors():

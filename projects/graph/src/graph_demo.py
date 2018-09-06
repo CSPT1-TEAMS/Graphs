@@ -26,22 +26,16 @@ def depth_first(graph):
     nodes = []
     for vertex in graph.vertices:
         vertex_data[vertex] = ['white', None]
-        # print('VERTEX_DATA', vertex_data)
     for vertex in graph.vertices:
-        # print('VERTEX::', vertex)
         if vertex_data[vertex][0] == 'white':
             nodes.append(vertex)
             DFS_visit(vertex, graph)
-    #         print('Visiting:', vertex)
-    # print('Vertex_Data::', vertex_data)
     return vertex_data.keys()
 
 
 def DFS_visit(vertex, graph):
     vertex_data[vertex][0] = 'grey'
     for neighbor in graph.vertices[vertex]:
-        # print('VERTEX:', vertex, 'NEIGHBOR:', neighbor)
-        # print('Vertex_Data::', vertex_data)
         if vertex_data[neighbor][0] == 'white':
             vertex_data[neighbor][1] = vertex
             DFS_visit(neighbor, graph)
@@ -102,6 +96,7 @@ def bfs( graph, start_vert ): # elissa sln
     return nodes
 
 vertex_data_c = {}
+
 def connected_components(graph):
     cc_list = []
     visited = set()
@@ -112,7 +107,6 @@ def connected_components(graph):
             for c in component:
                 visited.update(c)
     return cc_list    
-
 
 def main():
     pass  # TODO
@@ -135,17 +129,19 @@ def main():
     # depth_first(graph)
     # breadth_first_search(graph, '0')
     # print(connected_components(graph))
-    bg = BokehGraph(graph)
-    # bg.show()
 
+    cc_list = connected_components(graph)
+    bg = BokehGraph(graph, 'Graph', 10, 10, False, False, 25, cc_list)
+    bg.show()
     ## added print statements
     print('BFS: ' + str(bfs(graph, '7')))
     print('DFS: ' + str(depth_first(graph)))
-    cclist = connected_components(graph)
     ccstr = ''
-    for c in cclist:
+    for c in cc_list:
         ccstr += str(c) + "\n"
     print('Connected components: ' + ccstr)
+
+
 
 if __name__ == '__main__':
     # TODO - parse argv
