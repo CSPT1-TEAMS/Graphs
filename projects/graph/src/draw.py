@@ -29,8 +29,8 @@ class BokehGraph:
         graph_renderer = GraphRenderer()
 
         graph_renderer.node_renderer.data_source.add( 
-            
-            self.comp_order(), 'index'
+
+          self._graph_vertices_reorder(), 'index'
         )
         graph_renderer.node_renderer.data_source.add( 
             self._get_random_colors(), 'color'
@@ -52,9 +52,10 @@ class BokehGraph:
                 print(color)
         return colors
 
-    def comp_order(self):
+    def _graph_vertices_reorder(self):
         flat_list = [ node for i in self.graph_comps for node in i  ]
 
+        print(self.graph.vertices.keys())
         print("FL", flat_list)
         return flat_list
 

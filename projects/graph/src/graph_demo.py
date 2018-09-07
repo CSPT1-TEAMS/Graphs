@@ -69,7 +69,6 @@ def b_f_s(graph, startVert):
                         colors[n] = 'Grey'
                     q.put(n)
 
-
     return visited
 
 def c_components(graph):
@@ -85,7 +84,6 @@ def c_components(graph):
 
             for c in component:
                 visited_comps.update(component)
-
 
     return graph_comps
 
