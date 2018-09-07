@@ -26,5 +26,13 @@ class WeightedGraph:
 
     def add_edge(self, start, end, weight):
         self.vertices[start].update({ end: weight })
+        self.vertices[end].update({ start: weight })
+
+        #print('start:', start)
+        #print('end:', end)
+        #print('weight:', weight)
+        #print('also weight:', self.vertices[start][end])
+        #print('also weight:', self.vertices[end][start])
+        #print('\n')
 
         

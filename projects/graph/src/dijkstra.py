@@ -1,9 +1,47 @@
 #!/usr/bin/python
 
 from graph import WeightedGraph
+from math import inf
 
 def dijkstra(graph, start, end):
-    pass
+    #def distance_btwn(start, end):
+    #    return graph.vertices[start][end]
+
+    shortest_distance = {}
+    parent = {}
+    vertices = [v for v in graph.vertices.keys()]
+    lowest = 0
+
+    print('vertices:', vertices)
+
+    for vertex in vertices:
+        shortest_distance[vertex] = inf
+    shortest_distance[start] = 0
+
+    print('shortest distance before:', shortest_distance)
+
+    while vertices:
+        minimum = None
+        for vertex in vertices:
+            if minimum is None:
+                minimum = vertex
+            elif shortest_distance[vertex] < shortest_distance[minimum]:
+                minimum = vertex
+
+        for child, weight in graph.vertices[minimum].items():
+            if weight + shortest_distance[minimum] < shortest_distance[child]:
+                # relax shortest distance at child node:
+                shortest_distance[child] = weight + shortest_distance[minimum]
+                parent[child] = minimum
+
+        print('minimum at end of while loop:', minimum)
+        print('vertices in while loop; popping', vertices)
+        vertices.pop(minimum)
+
+        print('parent:', parent)
+
+    return shortest_distance
+                
     
 
 def main():
@@ -30,8 +68,9 @@ def main():
     graph.add_edge(5,7,5)
     graph.add_edge(6,7,3)
     
-    print(graph.vertices)
-    print(dijkstra(graph, 1, 6))
+    print('weighted graph: \n start : \n\t end : \n\t\t weight:', graph.vertices)
+
+    print(dijkstra(graph, 1, 6)) # distance: 11, path: 1, 2, 4, 6
 
 if __name__ == '__main__':
     # TODO - parse argv
