@@ -67,7 +67,6 @@ class BokehGraph:
                                    for j in range(6)])
             for c in cc:
                 colors.append(color)
-        print('colors', colors)
         return colors
 
     # def connected_component_colors():

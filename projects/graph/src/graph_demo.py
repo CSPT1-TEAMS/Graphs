@@ -118,8 +118,8 @@ def main():
     graph.add_vertex('4')
     graph.add_vertex('5')
     graph.add_vertex('6')
-    graph.add_vertex('7')
     graph.add_vertex('0')
+    graph.add_vertex('7')
     graph.add_edge('0', '1')
     graph.add_edge('0', '3')
     graph.add_edge('0', '2')
@@ -134,8 +134,8 @@ def main():
     bg = BokehGraph(graph, 'Graph', 10, 10, False, False, 25, cc_list)
     bg.show()
     ## added print statements
-    print('BFS: ' + str(bfs(graph, '7')))
-    print('DFS: ' + str(depth_first(graph)))
+    # print('BFS: ' + str(bfs(graph, '0')))
+    # print('DFS: ' + str(depth_first(graph)))
     ccstr = ''
     for c in cc_list:
         ccstr += str(c) + "\n"
