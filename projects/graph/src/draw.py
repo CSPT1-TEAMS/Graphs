@@ -25,19 +25,42 @@ class BokehGraph:
         self._setup_graph_renderer(circle_size)
     
     def _setup_graph_renderer(self, circle_size):
+        x_axis = []
+        y_axis = []
+        vertex = []
         graph_renderer = GraphRenderer()
         graph_renderer.node_renderer.data_source.add( 
-           list(self.array_reorder()), 'index'
+           self.vertices_reorder(), 'index'
         )
         graph_renderer.node_renderer.data_source.add( 
             self._get_random_colors(), 'color'
         )
-        graph_renderer.node_renderer.data_source.add( list(self.graph.vertices.keys()), 'text' )
-        graph_renderer.node_renderer.glyph = Circle( size=circle_size, fill_color='color' )
+        # graph_renderer.node_renderer.data_source.add(self.vertices_reorder(), 'text' )
+        labels = LabelSet(x = 'x', y = 'y', text='vertex', source=graph_renderer.node_renderer.data_source, x_offset=10, y_offset=10)
+        graph_renderer.node_renderer.data_source.add(
+            x_axis, 'x'
+        )
+        graph_renderer.node_renderer.data_source.add(
+            y_axis, 'y'
+        )
+        graph_renderer.node_renderer.data_source.add(
+            y_axis, 'y'
+        )
+        graph_renderer.node_renderer.data_source.add(
+            vertex, 'vertex'
+        )
+        graph_renderer.node_renderer.glyph = Circle( size=circle_size, fill_color='color')
         graph_renderer.edge_renderer.data_source.data = self._get_edge_indexes()
         self.randomize()
         graph_renderer.layout_provider = StaticLayoutProvider(graph_layout=self.pos)
-        self.plot.renderers.append(graph_renderer)
+        for i, (x,y) in self.pos.items():
+            x_axis.append(x)
+            y_axis.append(y)
+            vertex.append(i)
+
+        self.plot.renderers.append( graph_renderer)
+        self.plot.add_layout(labels)
+        # self.plot.renderers.append(labels)
 
     # def color_generator(self):
     #     comp = self.graph.connected_components()
@@ -57,13 +80,13 @@ class BokehGraph:
 
         # for c in comp:
 
-    def array_reorder(self):
-        array_reorder = []
+    def vertices_reorder(self):
+        vertices_reorder = []
         comps = self.graph.connected_components()
         for c in comps:
             for i in c:
-                array_reorder.append(i)
-        return array_reorder
+                vertices_reorder.append(i)
+        return vertices_reorder
 
 
         
@@ -76,10 +99,13 @@ class BokehGraph:
     #     print(colors)
     #     return colors
         comps = self.graph.connected_components()
+        print(self.graph.vertices.keys())
+        print(comps)
         for c in comps:
             color = "#" + ''.join([choice( '0123456789ABCDEF') for j in range(6)])
             for i in c:
-                colors.append( color )     
+                colors.append( color )   
+        print(colors)  
         return colors
 
     def _get_edge_indexes(self):

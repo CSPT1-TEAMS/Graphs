@@ -25,7 +25,7 @@ def draw_random_graph(graph, vertices, edges):
 
 def main():
     graph = Graph()
-    graph = draw_random_graph(graph, 60, 120)
+    graph = draw_random_graph(graph, 10, 4)
     # graph.add_vertex('0')
     # graph.add_vertex('2')
     # graph.add_vertex('5')
