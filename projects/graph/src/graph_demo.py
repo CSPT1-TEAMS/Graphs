@@ -163,7 +163,7 @@ if __name__ == "__main__":
             print_error()
             sys.exit(1)
     else:
-        vertices = 4
+        edges = 4
 
     if sys.argv[3]:
         if (sys.argv[3] == "True" or sys.argv[3] == "False"):
