@@ -10,7 +10,6 @@ def dijkstra(graph, start, end):
     shortest_distance = {}
     parent = {}
     vertices = [v for v in graph.vertices.keys()]
-    lowest = 0
 
     print('vertices:', vertices)
 
